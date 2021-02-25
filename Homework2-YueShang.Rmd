@@ -1,0 +1,82 @@
+---
+title: "Homework2"
+author: "Yue Shang"
+date: "2/13/2021"
+output: word_document
+---
+1) Enter and run USArrests. What type of information is shown in the data table USArrests?  (Three or four sentences)  
+```{r}
+library(tidyverse)
+library(dplyr)
+USArrests
+#State, value(double ) of Murder, integer of Assault, integer of UrbanPop, value(double ) of Rape
+```
+2) Use and show R coding that features a map function to show maximum values for all variables of the USArerests data frame.  Which State has the largest number of Assaults according to the USAressts data frame ?
+```{r}
+map_dbl(USArrests, max)
+#North Carolina has the largest number of Assaults
+```
+
+3) Install the nycflights13 package，call the following library, and then enter flights (this will produce the flights data table)
+```{r}
+library(nycflights13)
+flights
+```
+4) Use and show R code that will indicate how many rows and how many columns the flights data has.  Review and revisit your notes from STAT 412/612.  Describe a tibble (two or three sentences). Now use and show R code that verifies that flights is a tibble  
+```{r}
+nrow(flights)
+ncol(flights)
+#tibble() is much lazier than base::data.frame() in terms of transforming the user's input. Character vectors are not coerced to factor. List-columns are expressly anticipated and do not require special tricks. Column names are not modified.tibble() builds columns sequentially. When defining a column, you can refer to columns created earlier in the call. Only columns of length one are recycled.
+is_tibble(flights)
+```
+
+5) Now Use and show R code (featuring a map function) that will output the type of each column of the flights tibble.  
+```{r}
+map(flights,typeof)
+```  
+
+6)  Use and show R coding that features usage of a map function to find the slope and the intercept of models for the different levels of the Species variable of the iris data frame.  For each model, Sepal.Width predicts Sepal.Length.  
+```{r}
+abc <- iris %>%
+  split(.$Species) %>%
+  map(~lm(Sepal.Width  ~  Sepal.Length, data = .))
+abc
+```
+
+7)  
+```{r}
+V <- list(12, 22, 27, 31.5, NA, 39, "east")
+V
+```
+7a) Use and show R code to find the length of the list  
+```{r}
+length(V)
+```
+
+7b) Use and show R code that will extract the missing value  
+```{r}
+V[is.na(V)]
+```
+
+7c) Use and show R code that will extract the third object  
+```{r}
+V[3]
+```
+
+7d) Use and show R code that will extract the character string and the minimum number.  
+```{r}
+V[7] # character string
+V[1] #minimum number
+```
+
+7e) Use one line of code to show that the seventh object is a character object.  
+```{r}
+str(V[[7]])
+```
+
+
+
+
+
+
+
